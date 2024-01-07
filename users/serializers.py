@@ -16,7 +16,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields=['username', 'password', 'email', 'phoneNumber']
+        fields=['username', 'first_name', 'last_name', 'password', 'email', 'phoneNumber']
         extra_kwargs={
             'password':{'write_only':True},
                     }
@@ -28,6 +28,11 @@ class UserSerializer(serializers.ModelSerializer):
             instanse.set_password(password)
         instanse.save()
         return instanse
+
+class UserInfoSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['username', 'first_name', 'last_name', 'email', 'phoneNumber', 'isActive']
 
 
 

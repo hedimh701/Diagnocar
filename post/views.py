@@ -9,16 +9,13 @@ from rest_framework import status
 
 
 class PostListView(APIView):
-
-
-
     def get(self, request):
         allPosts = Post.objects.all()
         serializer = PostSerializers(allPosts, many=True)
         return Response(serializer.data)
 
 
-class PostListView(APIView):
+class PostSpeListView(APIView):
 
 
     def get(self, request, id):

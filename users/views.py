@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserSerializer, ChangePasswordSerializer, RequestResetPasswordEmailSerializer, SetNewPasswordSerializer
+from .serializers import UserSerializer, ChangePasswordSerializer, RequestResetPasswordEmailSerializer, SetNewPasswordSerializer, UserInfoSerializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
@@ -74,6 +74,17 @@ class SetNewPasswordView(generics.GenericAPIView):
 
         
 
+
+class UserInfoView(APIView):
+
+    def get(self, request):
+        token_string=str(request.auth)
+        access_token = AccessToken(token_string)
+        user=access_token['username']
+        userobj = User.objects.get(username=user)
+        serializer = UserInfoSerializers(userobj)
+        return Response(serializer.data)
+        
 
         
 
