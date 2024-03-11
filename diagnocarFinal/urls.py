@@ -24,6 +24,7 @@ urlpatterns = [
     path('post/', include('post.urls')),
     path('notification/', include('notification.urls')),
     path('partners/', include('partners.urls')),
+    path('subscription/', include('subscription.urls')),
    
 
 ]

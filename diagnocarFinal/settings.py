@@ -19,8 +19,8 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_ROOT= os.path.join(BASE_DIR, 'staticfiles/images')
-MEDIA_URL= '/images/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_URL= '/media/'
 
 
 
@@ -31,7 +31,7 @@ MEDIA_URL= '/images/'
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -177,6 +177,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+
+CRONJOBS = [
+    ('@daily', 'subscription.cron.deactivateUser')
 ]
 
 

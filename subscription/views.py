@@ -1,11 +1,21 @@
 from django.shortcuts import render
-from .serializers import UserSubSerializer
+from .serializers import SubscriptionSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework import status
-from users.models import User
-from .permissions import SuperUserPermission
+from .models import UserPackage
 
+
+class UserPackageView(APIView):
+
+    def get(self, request):
+        token_string=str(request.auth)
+        access_token = AccessToken(token_string)
+        user=access_token['username']
+        packageUserobj = UserPackage.objects.get(username=user)
+        serializer = SubscriptionSerializer(packageUserobj)
+        return Response(serializer.data)
 # Create your views here.
 
 # @api_view(['POST'])
